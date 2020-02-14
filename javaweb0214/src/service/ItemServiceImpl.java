@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dao.ItemDao;
@@ -42,6 +45,39 @@ public class ItemServiceImpl implements ItemService {
 			System.out.println(e.getMessage());
 			return -1;
 		}
+	}
+
+	@Override
+	public List<Item> list(HttpServletRequest request) {
+		List<Item> list = new ArrayList<Item>();
+		
+		Item item = new Item();
+		item.setNum(1);
+		item.setName("사과");
+		item.setPrice(5000);
+		item.setManufacture("충북 청송");
+		item.setDescription("비타민 C가 풍부");
+		list.add(item);
+		
+		item = new Item();
+		item.setNum(2);
+		item.setName("딸기");
+		item.setPrice(4000);
+		item.setManufacture("충남 논산");
+		item.setDescription("하우스 딸기");
+		list.add(item);
+		
+		item = new Item();
+		item.setNum(3);
+		item.setName("천혜향");
+		item.setPrice(8000);
+		item.setManufacture("제주");
+		item.setDescription("감귤보다 맛있음");
+		list.add(item);
+		//아이템 목록을 리턴할 때 데이터의 개수 0 이면 조회된 데이터가 없는 것입니다.
+		//List는 null을 리턴하지 않도록 해야 합니다.
+		//List는 반복문에 사용하기 때문에 null을 리턴하면 예외가 발생합니다.
+		return list;
 	}
 }
 

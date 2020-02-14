@@ -41,19 +41,28 @@ public class ItemController extends HttpServlet {
 		//포워딩에 사용하기 위한 변수
 		RequestDispatcher dispatcher = null;
 		//단순 페이지 이동은 포워딩 하는 것이 좋습니다.
-		if(command.contentEquals("/item/insert") && method.equals("GET")) {
+		if(command.equals("/item/insert") && method.equals("GET")) {
 			//현재 URL이 /item/insert 라서 WebContent 디렉토리로 이동할려면 item을 제거해야 해서
 			//../를 추가하고 views/insert.jsp로 포워딩
 			//WebContent/views/insert.jsp 파일이 존재해야 합니다.
 			dispatcher = request.getRequestDispatcher("../views/insert.jsp");
 			dispatcher.forward(request, response);
-		}else if(command.contentEquals("/item/insert") && method.equals("POST")) {
+		}else if(command.equals("/item/insert") && method.equals("POST")) {
 			//작업을 수행해야 하는 경우는 Service의 메소드를 호출
 			itemService.insert(request);
 			//결과 페이지로 이동 - 삽입, 삭제, 갱신은 반드시 리다이렉트로 이동
 			//자신의 요청이 /item/insert 이므로 /item/list로 갈때는 공통된 부분은 제외하고 설정
 			response.sendRedirect("./list");
-		}else if(command.equals("/el/disp")) {
+		}else if(command.equals("/item/list") && method.equals("GET")) {
+			//데이터를 검색해서 조회해야 하는 경우는 데이터를 검색하고 그 결과를 request에 저장하고
+			//결과 페이지로 포워딩
+			List<Item> list = itemService.list(request);
+			request.setAttribute("list", list);
+			
+			dispatcher = request.getRequestDispatcher("../views/list.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/el/disp")) {
 			//데이터 저장
 			request.setAttribute("msg", "Hello EL");
 			//List, Map, Item 클래스의 객체를 저장
