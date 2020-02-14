@@ -16,6 +16,10 @@
 	
 	<p>${msg}</p>
 	<p>초기화 파라미터:${initParam.db}</p>
+	
+	<p>리스트 출력:${list[0]}</p>
+	<p>맵 출력:${map.Encapsulation}</p>
+	<p>DTO 출력:${item.name}</p>
 </body>
 </html>
 

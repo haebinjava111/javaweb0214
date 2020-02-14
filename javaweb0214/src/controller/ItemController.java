@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.Item;
 import service.ItemService;
 import service.ItemServiceImpl;
 
@@ -51,8 +56,44 @@ public class ItemController extends HttpServlet {
 		}else if(command.equals("/el/disp")) {
 			//데이터 저장
 			request.setAttribute("msg", "Hello EL");
+			//List, Map, Item 클래스의 객체를 저장
+			List<String> list = new ArrayList<String>();
+			list.add("List");
+			list.add("Set");
+			list.add("Map");
+			
+			//Map 객체를 생성
+			Map<String, Object>map = new HashMap<String, Object>();
+			map.put("Encapsulation", "클래스와 인스턴스를 만드는 것");
+			map.put("Inheritance", "상위 클래스의 모든 것을 하위 클래스가 물려받는 것");
+			map.put("Polymorphism",
+					"동일한 코드가 대입되는 인스턴스에 따라 다른 메소드를 호출하는 것");
+			
+			//DTO 객체를 생성
+			Item item = new Item();
+			item.setNum(1);
+			item.setName("딸기");
+			item.setPrice(4000);
+			item.setManufacture("충남 논산");
+			item.setDescription("하우스에서 생성");
+			
+			//데이터 저장
+			request.setAttribute("list", list);
+			request.setAttribute("map", map);
+			request.setAttribute("item", item);
 			
 			dispatcher = request.getRequestDispatcher("../views/disp.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/el/datadisplay")) {
+			//전달하는 데이터
+			request.setAttribute("message", "Hello Message");
+			
+			//출력할 페이지
+			dispatcher = request.getRequestDispatcher("../views/data.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/el/jstl") && method.equals("GET")) {
+			//출력할 페이지
+			dispatcher = request.getRequestDispatcher("../views/jstl.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
