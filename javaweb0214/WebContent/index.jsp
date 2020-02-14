@@ -9,5 +9,7 @@
 <body>
 	<a href="./item/insert">데이터삽입</a><br/>
 	<a href="./item/list">전체 데이터 가져오기</a><br/>
+	
+	<a href="./el/disp">el 출력</a><br />
 </body>
 </html>

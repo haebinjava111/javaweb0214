@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.ItemService;
 import service.ItemServiceImpl;
 
-@WebServlet("/item/*")
+@WebServlet({"/item/*", "/el/*"})
 public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -48,6 +48,12 @@ public class ItemController extends HttpServlet {
 			//결과 페이지로 이동 - 삽입, 삭제, 갱신은 반드시 리다이렉트로 이동
 			//자신의 요청이 /item/insert 이므로 /item/list로 갈때는 공통된 부분은 제외하고 설정
 			response.sendRedirect("./list");
+		}else if(command.equals("/el/disp")) {
+			//데이터 저장
+			request.setAttribute("msg", "Hello EL");
+			
+			dispatcher = request.getRequestDispatcher("../views/disp.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

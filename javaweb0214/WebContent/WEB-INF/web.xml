@@ -9,4 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- 초기화 파라미터 생성 -->
+  <context-param>
+  	<param-name>db</param-name>
+  	<param-value>211.183.6.60:1521/xe</param-value>
+  </context-param>
 </web-app>
